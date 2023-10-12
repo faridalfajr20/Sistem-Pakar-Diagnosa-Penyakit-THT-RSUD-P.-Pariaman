@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "27906615631",
+    "project_id": "sistem-pakar-penyakit-th-33f20",
+    "storage_bucket": "sistem-pakar-penyakit-th-33f20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27906615631:android:bb771717fa6c2deacd3d3a",
+        "android_client_info": {
+          "package_name": "com.farid.spk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5dGVzgEgZn5ip-d2XzW3QhnlMUzKtHAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
