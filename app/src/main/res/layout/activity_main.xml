@@ -16,7 +16,7 @@
             android:layout_height="300dp">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="330dp"
+                android:layout_width="360dp"
                 android:layout_height="200dp"
                 android:layout_gravity="end"
                 android:elevation="5dp"
@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:text="Sistem Pakar Kebun Sawit"
+                    android:text="Sistem Pakar Penyakit THT"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -84,7 +84,7 @@
 
                         <ImageView
                             android:id="@+id/ivDiagnosa"
-                            android:layout_width="150dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerInParent="true"
@@ -95,6 +95,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
+                            android:layout_marginLeft="20dp"
                             android:layout_marginTop="10dp"
                             android:layout_toEndOf="@id/ivDiagnosa"
                             android:text="Daftar Penyakit"
@@ -122,7 +123,7 @@
 
                         <ImageView
                             android:id="@+id/ivKonsultasi"
-                            android:layout_width="150dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerInParent="true"
@@ -133,6 +134,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
+                            android:layout_marginLeft="20dp"
                             android:layout_marginTop="10dp"
                             android:layout_toEndOf="@id/ivKonsultasi"
                             android:text="Konsultasi Penyakit"
@@ -145,6 +147,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcTentang"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
@@ -159,7 +162,7 @@
 
                         <ImageView
                             android:id="@+id/ivTentang"
-                            android:layout_width="150dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerInParent="true"
@@ -170,6 +173,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
+                            android:layout_marginLeft="20dp"
                             android:layout_marginTop="10dp"
                             android:layout_toEndOf="@id/ivTentang"
                             android:text="Tentang Aplikasi"

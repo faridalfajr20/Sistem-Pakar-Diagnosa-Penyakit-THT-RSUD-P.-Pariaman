@@ -19,7 +19,8 @@ import com.farid.spk.model.ModelDaftarPenyakit;
 import com.farid.spk.model.ModelKonsultasi;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static String DB_NAME = "db_sp_penyakit_tht.db";
+
+    private static String DB_NAME = "db_sp_penyakit_tht_rev2.db";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
 
@@ -29,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        DB_PATH = "/data/data/" +context.getPackageName() + "/com/farid/sp/"; //path DB
+        DB_PATH = "/data/data/" + context.getPackageName() + "/databases/"; //path database
         this.ctx = context;
 
         copyDatabase();
@@ -46,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             copyDatabase();
 
-            needUpdate = false;
+            needUpdate = true;
         }
     }
 
@@ -64,6 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super.close();
     }
 
+
     //fungsi untuk cek apakah file DB sudah ada atau tidak
     private boolean checkDatabase() {
         File dbFile = new File(DB_PATH + DB_NAME);
@@ -72,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //fungsi untuk copy DB yang sudah dibuat sebelumnya
     private void copyDatabase() {
-        if(!checkDatabase()) {
+        if (!checkDatabase()) {
             this.getReadableDatabase();
             this.close();
             try {
@@ -126,6 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return draftOffline;
     }
 
+    //get list gejala
     public ArrayList<ModelKonsultasi> getDaftarGejala() {
         ArrayList<ModelKonsultasi> draftOffline = new ArrayList<>();
         SQLiteDatabase database = this.getWritableDatabase();

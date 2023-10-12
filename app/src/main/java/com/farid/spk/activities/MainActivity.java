@@ -16,7 +16,7 @@ import com.google.android.material.card.MaterialCardView;
 
 
 public class MainActivity  extends AppCompatActivity{
-    MaterialCardView mcDiagnosa, mcKonsultasi;
+    MaterialCardView mcDiagnosa, mcKonsultasi, mcTentang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class MainActivity  extends AppCompatActivity{
 
         mcDiagnosa = findViewById(R.id.mcDiagnosa);
         mcKonsultasi = findViewById(R.id.mcKonsultasi);
+        mcTentang = findViewById(R.id.mcTentang);
 
         mcDiagnosa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +41,15 @@ public class MainActivity  extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), KonsultasiActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        mcTentang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
                 startActivity(intent);
             }
         });
