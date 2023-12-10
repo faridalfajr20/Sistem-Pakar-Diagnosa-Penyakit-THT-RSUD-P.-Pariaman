@@ -15,9 +15,34 @@
             android:layout_width="match_parent"
             android:layout_height="300dp">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcLogout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="1dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/ivLogout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_logout" />
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="360dp"
-                android:layout_height="200dp"
+                android:layout_width="320dp"
+                android:layout_height="140dp"
                 android:layout_gravity="end"
                 android:elevation="5dp"
                 android:scaleType="fitXY"
@@ -63,129 +88,396 @@
             android:layout_below="@id/frameHeader"
             android:layout_marginTop="20dp">
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/frameHeader"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/icon_group1"
+                android:layout_width="wrap_content"
+                android:layout_height="140dp"
+
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="60dp">
+
+                <!--        <androidx.core.widget.NestedScrollView-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="match_parent"-->
+                <!--            android:layout_below="@id/frameHeader"-->
+                <!--            android:layout_marginTop="20dp">-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcDiagnosa"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="3dp"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="2dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/ivDiagnosa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_diagnosa" />
+
+                            <!--                        <TextView-->
+                            <!--                            android:layout_width="wrap_content"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:layout_centerInParent="true"-->
+                            <!--                            android:layout_marginLeft="20dp"-->
+                            <!--                            android:layout_marginTop="10dp"-->
+                            <!--                            android:layout_toEndOf="@id/ivDiagnosa"-->
+                            <!--                            android:text="Daftar Penyakit"-->
+                            <!--                            android:textColor="@android:color/holo_green_dark"-->
+                            <!--                            android:textSize="25sp"-->
+                            <!--                            android:textStyle="bold" />-->
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcKonsultasi"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="3dp"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="2dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/ivKonsultasi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginStart="0dp"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_konsultasi" />
+
+                            <!--                        <TextView-->
+                            <!--                            android:layout_width="wrap_content"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:layout_centerInParent="true"-->
+                            <!--                            android:layout_marginLeft="20dp"-->
+                            <!--                            android:layout_marginTop="10dp"-->
+                            <!--                            android:layout_toEndOf="@id/ivKonsultasi"-->
+                            <!--                            android:text="Konsultasi Penyakit"-->
+                            <!--                            android:textColor="@android:color/holo_green_dark"-->
+                            <!--                            android:textSize="25sp"-->
+                            <!--                            android:textStyle="bold" />-->
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!--                <com.google.android.material.card.MaterialCardView-->
+                    <!--                    android:id="@+id/mcTentang"-->
+                    <!--                    android:layout_width="150dp"-->
+                    <!--                    android:layout_height="150dp"-->
+                    <!--                    android:layout_margin="10dp"-->
+                    <!--                    app:cardCornerRadius="30dp"-->
+                    <!--                    app:cardElevation="3dp"-->
+                    <!--                    app:strokeColor="@color/primary"-->
+                    <!--                    app:strokeWidth="2dp">-->
+
+                    <!--                    <RelativeLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="match_parent">-->
+
+                    <!--                        <ImageView-->
+                    <!--                            android:id="@+id/ivTentang"-->
+                    <!--                            android:layout_width="wrap_content"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_alignParentStart="true"-->
+                    <!--                            android:layout_centerInParent="true"-->
+                    <!--                            android:padding="10dp"-->
+                    <!--                            android:src="@drawable/ic_about" />-->
+
+                    <!--&lt;!&ndash;                        <TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            android:layout_centerInParent="true"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            android:layout_marginLeft="20dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            android:layout_marginTop="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            android:layout_toEndOf="@id/ivTentang"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            android:text="Tentang Aplikasi"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            android:textColor="@android:color/holo_green_dark"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            android:textSize="25sp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            android:textStyle="bold" />&ndash;&gt;-->
+
+                    <!--                    </RelativeLayout>-->
+
+                    <!--                </com.google.android.material.card.MaterialCardView>-->
+
+                </LinearLayout>
+
+            </FrameLayout>
+            <!--        </androidx.core.widget.NestedScrollView>-->
+
+            <FrameLayout
+                android:id="@+id/icon_group2"
+                android:layout_width="wrap_content"
+                android:layout_height="210dp"
+                android:layout_below="@id/icon_group1"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="60dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcJadwal"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="3dp"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="2dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/ivJadwal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_jadwal" />
+
+                            <!--                        <TextView-->
+                            <!--                            android:layout_width="wrap_content"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:layout_centerInParent="true"-->
+                            <!--                            android:layout_marginLeft="20dp"-->
+                            <!--                            android:layout_marginTop="10dp"-->
+                            <!--                            android:layout_toEndOf="@id/ivTentang"-->
+                            <!--                            android:text="Tentang Aplikasi"-->
+                            <!--                            android:textColor="@android:color/holo_green_dark"-->
+                            <!--                            android:textSize="25sp"-->
+                            <!--                            android:textStyle="bold" />-->
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcTentang"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="3dp"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="2dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/ivTentang"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_about" />
+
+                            <!--                        <TextView-->
+                            <!--                            android:layout_width="wrap_content"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:layout_centerInParent="true"-->
+                            <!--                            android:layout_marginLeft="20dp"-->
+                            <!--                            android:layout_marginTop="10dp"-->
+                            <!--                            android:layout_toEndOf="@id/ivTentang"-->
+                            <!--                            android:text="Tentang Aplikasi"-->
+                            <!--                            android:textColor="@android:color/holo_green_dark"-->
+                            <!--                            android:textSize="25sp"-->
+                            <!--                            android:textStyle="bold" />-->
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/footer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="150dp"
+                android:layout_below="@id/icon_group2"
+                android:layout_centerInParent="true"
+                android:background="#85979F">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/mcDiagnosa"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    app:cardCornerRadius="30dp"
-                    app:cardElevation="3dp"
-                    app:strokeColor="@color/primary"
-                    app:strokeWidth="2dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_FB"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="1dp">
 
-                        <ImageView
-                            android:id="@+id/ivDiagnosa"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerInParent="true"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_diagnosa" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@id/ivDiagnosa"
-                            android:text="Daftar Penyakit"
-                            android:textColor="@android:color/holo_green_dark"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
+                            <ImageView
+                                android:id="@+id/ivFB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_fb" />
 
-                    </RelativeLayout>
+                        </RelativeLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                    </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/mcKonsultasi"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    app:cardCornerRadius="30dp"
-                    app:cardElevation="3dp"
-                    app:strokeColor="@color/primary"
-                    app:strokeWidth="2dp">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mc_IG"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="1dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <ImageView
-                            android:id="@+id/ivKonsultasi"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerInParent="true"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_konsultasi" />
+                            <ImageView
+                                android:id="@+id/ivIG"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_ig" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@id/ivKonsultasi"
-                            android:text="Konsultasi Penyakit"
-                            android:textColor="@android:color/holo_green_dark"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
+                        </RelativeLayout>
 
-                    </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-                </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcWeB"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="1dp">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/mcTentang"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
-                    app:cardCornerRadius="30dp"
-                    app:cardElevation="3dp"
-                    app:strokeColor="@color/primary"
-                    app:strokeWidth="2dp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                            <ImageView
+                                android:id="@+id/ivWeb"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_web" />
 
-                        <ImageView
-                            android:id="@+id/ivTentang"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerInParent="true"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_about" />
+                        </RelativeLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@id/ivTentang"
-                            android:text="Tentang Aplikasi"
-                            android:textColor="@android:color/holo_green_dark"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
+                    </com.google.android.material.card.MaterialCardView>
 
-                    </RelativeLayout>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcPhone"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="1dp">
 
-                </com.google.android.material.card.MaterialCardView>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-            </LinearLayout>
+                            <ImageView
+                                android:id="@+id/ivPhone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_phone" />
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcLocation"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="1dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/ivLocation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_location" />
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 

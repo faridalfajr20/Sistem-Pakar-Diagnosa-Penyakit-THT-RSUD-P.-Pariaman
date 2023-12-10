@@ -12,7 +12,20 @@
           "package_name": "com.farid.spk"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "27906615631-tunf6r0u86lc3cdp0jmlst17bvaaqr89.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.farid.spk",
+            "certificate_hash": "ca9f4a6def6fbf39eec165cbad7f25413f08315a"
+          }
+        },
+        {
+          "client_id": "27906615631-9jv83472ce3gp1mld24fh7qtp7esg4ve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC5dGVzgEgZn5ip-d2XzW3QhnlMUzKtHAM"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27906615631-9jv83472ce3gp1mld24fh7qtp7esg4ve.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

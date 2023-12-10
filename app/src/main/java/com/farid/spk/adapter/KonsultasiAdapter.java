@@ -49,8 +49,8 @@ public class KonsultasiAdapter extends RecyclerView.Adapter<KonsultasiAdapter.Ko
                     varGlobal--;
                 }
 
-                if(varGlobal >= 4) {
-                    Toast.makeText(ctx,"Maaf Maksimal angka Pilihan Saja", Toast.LENGTH_LONG).show();
+                if(varGlobal >= 71) {
+                    Toast.makeText(ctx,"Maaf Maksimal 71 Pilihan Saja", Toast.LENGTH_LONG).show();
                     checkboxView.setChecked(false);
                     varGlobal--;
                 } else {

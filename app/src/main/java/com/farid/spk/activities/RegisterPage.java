@@ -3,10 +3,15 @@ package com.farid.spk.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +34,8 @@ public class RegisterPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
+
+        setStatusBar();
 
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
@@ -71,12 +78,35 @@ public class RegisterPage extends AppCompatActivity {
                                     finish();
                                 }
                                 else {
-                                    Toast.makeText(RegisterPage.this, "Autentifikasi gagal", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterPage.this, "Autentikasi gagal", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
 
             }
         });
+    }
+
+    private void setStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+
+        if (Build.VERSION.SDK_INT >=21) {
+            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
+
+    public static void setWindowFlag(Activity activity, final int bits, boolean on) {
+        Window window = activity.getWindow();
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        if (on) {
+            layoutParams.flags |= bits;
+        } else {
+            layoutParams.flags &= ~bits;
+        }
+        window.setAttributes(layoutParams);
     }
 }

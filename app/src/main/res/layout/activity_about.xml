@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:text="Tentang Kami"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="219dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/hospital" />
+
+    <TextView
+        android:id="@+id/textViewNama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:text="RSUD PADANG PARIAMAN"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textDeskripsi1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewNama"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="16sp"
+        android:justificationMode="inter_word"
+        android:textColor="@color/black"
+        android:text="      Rumah Sakit Umum Daerah Padang Pariaman beroperasi pada tanggal 23 Mei 2009, pada tanggal 24 Juni 2009 RSUD Padang Pariaman mendapatkan Izin Uji Coba Penyelenggaraan Rumah Sakit berdasarkan Surat Keputusan Kepala Dinas Kesehatan Provinsi Sumatera Barat Nomor: PPK.ASK.3034/VI/2009. Namun karena keterbatasan sarana prasarana dan sumber daya manusia, izin operasional tetap belum bisa diterbitkan sehingga kembali dilakukan perpanjangan izin operasional sementara untuk penyelenggaraan RSUD Padang Pariaman berdasarkan Keputusan Bupati Padang Pariaman Nomor 62/KEP/BPP/2011.
+
+Pada awal operasional direktur RSUD Padang Pariaman adalah dr. H. Lazwardi,M.Kes (selaku Pelaksana Tugas Direktur).  Selanjutnya terjadi pergantian direktur yaitu Dra. Elfi Delita, M.Farm. APT, dr. H. Aspinuddin, dr. Hj. Efri Yeni, dr. Hj. Lismawati R,M.Biomed, Sp.PA. Terhitung mulai tanggal 5 November 2021 terjadi pergantian Direktur, dr. Hj.Lismawati R.BioMed.Sp.PA digantikan oleh dr. Jasneli, MARS." />
+
+
+   <TextView
+       android:id="@+id/textDeskripsi2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/textDeskripsi1"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:layout_marginBottom="10dp"
+       android:textSize="16sp"
+       android:justificationMode="inter_word"
+       android:textColor="@color/black"
+       android:text="       Tahun 2012, berdasarkan Keputusan Menteri Kesehatan Republik Indonesia Nomor : HK.03.05/I/153/2012, RSUD Padang Pariaman ditetapkan sebagai Rumah Sakit kelas C. Saat ini, kapasitas tempat tidur sebanyak 100 tempat tidur, dengan pelayanan spesialistik : spesialis penyakit dalam, spesialis syaraf, spesialis mata, spesialis bedah, spesialis anak, spesialis gigi, spesialis kebidanan dan kandungan, spesialis kulit dan kelamin, spesialis paru, spesialis THT, spesialis jantung, spesialis jiwa, spesialis fisioterapi, serta ada poli gigi umum dan poli umum."/>
+
+                <TextView
+                    android:id="@+id/textDeskripsi3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textDeskripsi2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="16sp"
+                    android:justificationMode="inter_word"
+                    android:textColor="@color/black"
+                    android:text="      Pada awal operasional direktur RSUD Padang Pariaman adalah dr. H. Lazwardi,M.Kes (selaku Pelaksana Tugas Direktur).  Selanjutnya terjadi pergantian direktur yaitu Dra. Elfi Delita, M.Farm. APT, dr. H. Aspinuddin, dr. Hj. Efri Yeni, dr. Hj. Lismawati R,M.Biomed, Sp.PA. Terhitung mulai tanggal 5 November 2021 terjadi pergantian Direktur, dr. Hj.Lismawati R.BioMed.Sp.PA digantikan oleh dr. Jasneli, MARS."/>
+
+    <TextView
+        android:id="@+id/textViewNomorTelepon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textDeskripsi3"
+        android:layout_centerHorizontal="true"
+        android:text="(021) 1234567"
+        android:textSize="14sp" />
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

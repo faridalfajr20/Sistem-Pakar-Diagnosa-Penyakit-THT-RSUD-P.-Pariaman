@@ -19,12 +19,15 @@ import androidx.appcompat.widget.Toolbar;
 import com.farid.spk.R;
 import com.google.android.material.button.MaterialButton;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.farid.spk.database.DatabaseHelper;
@@ -33,8 +36,9 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
 
     SQLiteDatabase sqLiteDatabase;
     Toolbar toolbar;
-    TextView tvGejala,tvNamaPenyakit;
+    TextView tvGejala,tvNamaPenyakit, tvListPenyakit;
     MaterialButton btnDiagnosaUlang, btnDaftarPenyakit;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +47,16 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
 
         setStatusBar();
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        databaseHelper = new DatabaseHelper(this);
         if (databaseHelper.openDatabase())
             sqLiteDatabase = databaseHelper.getReadableDatabase();
 
         toolbar = findViewById(R.id.toolbar);
         tvGejala = findViewById(R.id.tvGejala);
         tvNamaPenyakit = findViewById(R.id.tvNamaPenyakit);
+
+        tvListPenyakit = findViewById(R.id.tvListPenyakit);
+
         btnDiagnosaUlang = findViewById(R.id.btnDiagnosaUlang);
         btnDaftarPenyakit = findViewById(R.id.btnDaftarPenyakit);
 
@@ -65,42 +72,69 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
             gejala_terpilih = str_hasil.split("#");
         }
 
-        double cf_gabungan;
-        double cf;
+        double bobot_gabungan;
+        double bobot;
         HashMap<String, Double> mapHasil = new HashMap<>();
 
         String query_penyakit = "SELECT kode_penyakit FROM penyakit order by kode_penyakit";
         Cursor cursor_penyakit = sqLiteDatabase.rawQuery(query_penyakit, null);
 
         while (cursor_penyakit.moveToNext()) {
-            cf_gabungan = (double) 0;
+            bobot_gabungan = (double) 0;
             int i = 0;
-            String query_rule = "SELECT nilai_cf, kode_gejala FROM rule where kode_penyakit = '" + cursor_penyakit.getString(0) + "'";
+            String query_rule = "SELECT nilai_bobot, kode_gejala FROM rule where kode_penyakit = '" + cursor_penyakit.getString(0) + "'";
             Cursor cursor_rule = sqLiteDatabase.rawQuery(query_rule, null);
             while (cursor_rule.moveToNext()) {
-                cf = cursor_rule.getDouble(0);
+                bobot = cursor_rule.getDouble(0);
                 for (String s_gejala_terpilih : gejala_terpilih) {
                     String query_gejala = "SELECT kode_gejala FROM gejala where nama_gejala = '" + s_gejala_terpilih + "'";
                     Cursor cursor_gejala = sqLiteDatabase.rawQuery(query_gejala, null);
                     cursor_gejala.moveToFirst();
                     if (cursor_rule.getString(1).equals(cursor_gejala.getString(0))) {
+                        // Memeriksa apakah gejala dari aturan (rule) sama dengan gejala yang dimasukkan
                         if (i > 1) {
-                            cf_gabungan = cf + (cf_gabungan * (1 - cf));
+                            // Jika gejala sudah lebih dari satu (i > 1)
+                            bobot_gabungan = bobot + (bobot_gabungan * (1 - bobot));
+                            // Menghitung bobot gabungan dengan rumus
+                            // bobot_gabungan = bobot + (bobot_gabungan * (1 - bobot))
                         } else if (i == 1) {
-                            cf_gabungan = cf_gabungan + (cf * (1 - cf_gabungan));
+                            // Jika gejala baru satu (i == 1)
+                            bobot_gabungan = bobot_gabungan + (bobot * (1 - bobot_gabungan));
+                            // Menghitung bobot gabungan dengan rumus
+                            // bobot_gabungan = bobot_gabungan + (bobot * (1 - bobot_gabungan))
                         } else {
-                            cf_gabungan = cf;
+                            // Jika ini gejala pertama (i == 0)
+                            bobot_gabungan = bobot;
+                            // Assign bobot ke bobot_gabungan
                         }
                         i++;
+                        // Increment i untuk menandakan bahwa telah memproses satu gejala
                     }
                     cursor_gejala.close();
                 }
             }
             cursor_rule.close();
-            mapHasil.put(cursor_penyakit.getString(0), cf_gabungan * 100);
+            mapHasil.put(cursor_penyakit.getString(0), bobot_gabungan * 100);
 
         }
         cursor_penyakit.close();
+
+        StringBuilder listPenyakit = new StringBuilder();
+        for (Map.Entry<String, Double> entry : SortByValue(mapHasil).entrySet()) {
+            String kode_penyakit = entry.getKey();
+            double hasil_bobot = entry.getValue();
+            int persentase = (int) hasil_bobot;
+
+            String query_penyakit_hasil = "SELECT nama_penyakit FROM penyakit where kode_penyakit='" + kode_penyakit + "'";
+            Cursor cursor_hasil = sqLiteDatabase.rawQuery(query_penyakit_hasil, null);
+            cursor_hasil.moveToFirst();
+
+            listPenyakit.append(cursor_hasil.getString(0)).append(": ").append(persentase).append("%\n");
+
+            cursor_hasil.close();
+        }
+
+        tvListPenyakit.setText(listPenyakit.toString());
 
         StringBuffer output_gejala_terpilih = new StringBuffer();
         int no = 1;
@@ -117,8 +151,8 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
 
         Map.Entry<String, Double> entry = sortedHasil.entrySet().iterator().next();
         String kode_penyakit = entry.getKey();
-        double hasil_cf = entry.getValue();
-        int persentase = (int) hasil_cf;
+        double hasil_bobot = entry.getValue();
+        int persentase = (int) hasil_bobot;
 
         String query_penyakit_hasil = "SELECT nama_penyakit FROM penyakit where kode_penyakit='" + kode_penyakit + "'";
         Cursor cursor_hasil = sqLiteDatabase.rawQuery(query_penyakit_hasil, null);
