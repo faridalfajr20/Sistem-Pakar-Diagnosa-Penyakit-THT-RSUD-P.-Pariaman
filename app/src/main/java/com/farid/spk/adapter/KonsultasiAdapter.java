@@ -1,6 +1,7 @@
 package com.farid.spk.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,14 +44,16 @@ public class KonsultasiAdapter extends RecyclerView.Adapter<KonsultasiAdapter.Ko
             public void onCheckedChanged(CompoundButton checkboxView, boolean isChecked) {
                 ModelKonsultasi modelKonsultasi = (ModelKonsultasi) checkboxView.getTag();
 
+                Log.d("Checkbox", "Gejala: " + modelKonsultasi.getStrGejala() + ", Checked: " + isChecked);
+
                 if (isChecked) {
                     varGlobal++;
                 } else if (!isChecked) {
                     varGlobal--;
                 }
 
-                if(varGlobal >= 71) {
-                    Toast.makeText(ctx,"Maaf Maksimal 71 Pilihan Saja", Toast.LENGTH_LONG).show();
+                if(varGlobal >= 70) {
+                    Toast.makeText(ctx,"Maaf Maksimal 70 Pilihan Saja", Toast.LENGTH_LONG).show();
                     checkboxView.setChecked(false);
                     varGlobal--;
                 } else {

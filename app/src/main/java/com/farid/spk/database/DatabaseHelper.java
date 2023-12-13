@@ -20,7 +20,7 @@ import com.farid.spk.model.ModelKonsultasi;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String DB_NAME = "db_sp_penyakit_tht_rev11.db";
+    private static String DB_NAME = "db_sp_penyakit_tht_rev11-test4.db";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
 

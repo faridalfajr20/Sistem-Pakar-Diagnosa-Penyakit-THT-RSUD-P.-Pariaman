@@ -117,26 +117,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvListPenyakit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="20dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
-                    android:text="Penyakit dengan kemungkinan terbesar adalah:"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
                     android:id="@+id/tvNamaPenyakit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -144,7 +124,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="20dp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
 <!--                <TextView-->
 <!--                    android:layout_width="wrap_content"-->
@@ -157,7 +137,7 @@
 <!--                    android:textStyle="bold" />-->
 
 <!--                <TextView-->
-<!--                    android:id="@+id/tvNamaPenyakitTertinggi"-->
+<!--                    android:id="@+id/tvNamaPenyakit"-->
 <!--                    android:layout_width="wrap_content"-->
 <!--                    android:layout_height="wrap_content"-->
 <!--                    android:layout_marginStart="20dp"-->
@@ -165,6 +145,7 @@
 <!--                    android:layout_marginEnd="20dp"-->
 <!--                    android:textColor="@color/black"-->
 <!--                    android:textSize="16sp" />-->
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDiagnosaUlang"
@@ -177,7 +158,7 @@
                     android:layout_marginEnd="40dp"
                     android:layout_marginBottom="20dp"
                     android:backgroundTint="@color/primary"
-                    android:text="Diagnosa Ulang"
+                    android:text="Kembali Ke Home"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:cornerRadius="20dp"

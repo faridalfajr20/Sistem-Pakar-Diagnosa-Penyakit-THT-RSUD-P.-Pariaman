@@ -6,10 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,9 +37,14 @@ public class KonsultasiActivity extends AppCompatActivity{
     ArrayList<ModelKonsultasi> modelKonsultasiArrayList = new ArrayList<>();
     DatabaseHelper databaseHelper;
     Toolbar toolbar;
-    RecyclerView rvGejalaPenyakit;
+//    RecyclerView rvGejalaPenyakit;
     MaterialButton btnHasilDiagnosa;
 
+    // Variabel global untuk menyimpan gejala yang dipilih
+    ArrayList<String> gejalaTerpilihList = new ArrayList<>();
+
+    private LinearLayout questionContainer;
+    private int currentQuestionIndex = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +57,6 @@ public class KonsultasiActivity extends AppCompatActivity{
             sqLiteDatabase = databaseHelper.getReadableDatabase();
 
         toolbar = findViewById(R.id.toolbar);
-        rvGejalaPenyakit = findViewById(R.id.rvGejalaPenyakit);
         btnHasilDiagnosa = findViewById(R.id.btnHasilDiagnosa);
 
         setSupportActionBar(toolbar);
@@ -57,48 +65,110 @@ public class KonsultasiActivity extends AppCompatActivity{
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        rvGejalaPenyakit.setLayoutManager(new LinearLayoutManager(this));
+//        rvGejalaPenyakit.setLayoutManager(new LinearLayoutManager(this));
         konsultasiAdapter = new KonsultasiAdapter(this, modelKonsultasiArrayList);
-        rvGejalaPenyakit.setAdapter(konsultasiAdapter);
-        rvGejalaPenyakit.setHasFixedSize(true);
+//        rvGejalaPenyakit.setAdapter(konsultasiAdapter);
+//        rvGejalaPenyakit.setHasFixedSize(true);
 
         btnHasilDiagnosa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringBuffer gejalaTerpilih = new StringBuffer();
 
                 ArrayList<ModelKonsultasi> gejalaList = modelKonsultasiArrayList;
                 for (int i = 0; i < gejalaList.size(); i++) {
                     ModelKonsultasi gejala = gejalaList.get(i);
                     if (gejala.isSelected()) {
-                        gejalaTerpilih.append(gejala.getStrGejala()).append("#");
+                        gejalaTerpilihList.add(gejala.getStrGejala());
                     }
                 }
 
-                if (gejalaTerpilih.toString().equals("")) {
+                if (gejalaTerpilihList.isEmpty()) {
                     Toast.makeText(KonsultasiActivity.this, "Silahkan pilih gejala dahulu!", Toast.LENGTH_SHORT).show();
 
                 } else {
                     // Tampilkan activity hasil diagnosa
                     Intent intent = new Intent(v.getContext(), HasilDiagnosaActivity.class);
-                    intent.putExtra("HASIL", gejalaTerpilih.toString());
+                    intent.putStringArrayListExtra("HASIL", gejalaTerpilihList);
+                    Log.d("SelectedGejala", "Selected Gejala: " + gejalaTerpilihList.toString());
                     startActivity(intent);
                 }
             }
         });
 
         getListData();
+
+        questionContainer = findViewById(R.id.questionContainer);
+
+        // Tampilkan pertanyaan dan tombol "Ya" dan "Tidak" untuk pertama kali
+        displayQuestion(currentQuestionIndex);
+    }
+
+    private void displayQuestion(int questionIndex) {
+        // Bersihkan kontainer pertanyaan
+        questionContainer.removeAllViews();
+
+        if (questionIndex < modelKonsultasiArrayList.size()) {
+            ModelKonsultasi gejala = modelKonsultasiArrayList.get(questionIndex);
+
+            // Buat tata letak untuk pertanyaan dan tombol "Ya" dan "Tidak"
+            View questionLayout = LayoutInflater.from(this).inflate(R.layout.question_layout, questionContainer, false);
+            TextView tvQuestion = questionLayout.findViewById(R.id.tvQuestion);
+            MaterialButton btnYes = questionLayout.findViewById(R.id.btnYes);
+            MaterialButton btnNo = questionLayout.findViewById(R.id.btnNo);
+
+            // Tampilkan pertanyaan
+            tvQuestion.setText(gejala.getStrGejala());
+
+            // Atur listener untuk tombol "Ya" dan "Tidak"
+            btnYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onAnswerSelected(true);
+                }
+            });
+
+            btnNo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onAnswerSelected(false);
+                }
+            });
+
+            // Tambahkan tata letak ke kontainer pertanyaan
+            questionContainer.addView(questionLayout);
+        }
+//        else {
+//            // Jika sudah mencapai pertanyaan terakhir, tampilkan tombol "Hasil Diagnosa"
+//            questionContainer.addView(btnHasilDiagnosa);
+//        }
+    }
+
+    private void onAnswerSelected(boolean answer) {
+        // Simpan jawaban pengguna
+        modelKonsultasiArrayList.get(currentQuestionIndex).setSelected(answer);
+
+        // Pindah ke pertanyaan berikutnya
+        currentQuestionIndex++;
+
+        // Tampilkan pertanyaan berikutnya atau tombol "Hasil Diagnosa"
+        displayQuestion(currentQuestionIndex);
     }
 
     private void getListData() {
         modelKonsultasiArrayList = databaseHelper.getDaftarGejala();
-        if (modelKonsultasiArrayList.size() == 0) {
-            rvGejalaPenyakit.setVisibility(View.GONE);
-        } else {
-            rvGejalaPenyakit.setVisibility(View.VISIBLE);
-            konsultasiAdapter = new KonsultasiAdapter(this, modelKonsultasiArrayList);
-            rvGejalaPenyakit.setAdapter(konsultasiAdapter);
+
+        modelKonsultasiArrayList = databaseHelper.getDaftarGejala();
+        for (ModelKonsultasi gejala : modelKonsultasiArrayList) {
+            Log.d("Gejala", "Gejala: " + gejala.getStrGejala() + ", Selected: " + gejala.isSelected());
         }
+
+//        if (modelKonsultasiArrayList.size() == 0) {
+//            rvGejalaPenyakit.setVisibility(View.GONE);
+//        } else {
+//            rvGejalaPenyakit.setVisibility(View.VISIBLE);
+//            konsultasiAdapter = new KonsultasiAdapter(this, modelKonsultasiArrayList);
+//            rvGejalaPenyakit.setAdapter(konsultasiAdapter);
+//        }
     }
 
     private void setStatusBar() {

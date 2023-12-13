@@ -24,8 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity  extends AppCompatActivity{
     MaterialCardView mcDiagnosa, mcKonsultasi, mcTentang, mcJadwal,
-    mc_FB, mc_IG, mcWeb, mcPhone, mcLocation,
-    mcLogout;
+            mc_FB, mc_IG, mcWeb, mcPhone, mcLocation,
+            mcLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

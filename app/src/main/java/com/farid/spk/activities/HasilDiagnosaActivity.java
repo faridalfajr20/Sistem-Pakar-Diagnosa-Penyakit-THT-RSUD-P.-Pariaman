@@ -1,12 +1,15 @@
 package com.farid.spk.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +23,7 @@ import com.farid.spk.R;
 import com.google.android.material.button.MaterialButton;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -36,7 +40,7 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
 
     SQLiteDatabase sqLiteDatabase;
     Toolbar toolbar;
-    TextView tvGejala,tvNamaPenyakit, tvListPenyakit;
+    TextView tvGejala,tvNamaPenyakit;
     MaterialButton btnDiagnosaUlang, btnDaftarPenyakit;
     DatabaseHelper databaseHelper;
 
@@ -54,9 +58,6 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         tvGejala = findViewById(R.id.tvGejala);
         tvNamaPenyakit = findViewById(R.id.tvNamaPenyakit);
-
-        tvListPenyakit = findViewById(R.id.tvListPenyakit);
-
         btnDiagnosaUlang = findViewById(R.id.btnDiagnosaUlang);
         btnDaftarPenyakit = findViewById(R.id.btnDaftarPenyakit);
 
@@ -66,79 +67,44 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        String str_hasil = getIntent().getStringExtra("HASIL");
-        String[] gejala_terpilih = new String[0];
-        if (str_hasil != null) {
-            gejala_terpilih = str_hasil.split("#");
-        }
+        ArrayList<String> receivedGejala = getIntent().getStringArrayListExtra("HASIL");
+        Log.d("ReceivedGejala", "Received Gejala: " + receivedGejala);
 
-        double bobot_gabungan;
-        double bobot;
-        HashMap<String, Double> mapHasil = new HashMap<>();
+        HashMap<String, Integer> mapHasil = new HashMap<>();
 
         String query_penyakit = "SELECT kode_penyakit FROM penyakit order by kode_penyakit";
         Cursor cursor_penyakit = sqLiteDatabase.rawQuery(query_penyakit, null);
 
         while (cursor_penyakit.moveToNext()) {
-            bobot_gabungan = (double) 0;
-            int i = 0;
-            String query_rule = "SELECT nilai_bobot, kode_gejala FROM rule where kode_penyakit = '" + cursor_penyakit.getString(0) + "'";
+            int gejala_terpilih_count = 0;
+
+            String query_rule = "SELECT kode_gejala FROM rule where kode_penyakit = '" + cursor_penyakit.getString(0) + "'";
             Cursor cursor_rule = sqLiteDatabase.rawQuery(query_rule, null);
+
             while (cursor_rule.moveToNext()) {
-                bobot = cursor_rule.getDouble(0);
-                for (String s_gejala_terpilih : gejala_terpilih) {
+                for (String s_gejala_terpilih : receivedGejala) {
                     String query_gejala = "SELECT kode_gejala FROM gejala where nama_gejala = '" + s_gejala_terpilih + "'";
                     Cursor cursor_gejala = sqLiteDatabase.rawQuery(query_gejala, null);
-                    cursor_gejala.moveToFirst();
-                    if (cursor_rule.getString(1).equals(cursor_gejala.getString(0))) {
-                        // Memeriksa apakah gejala dari aturan (rule) sama dengan gejala yang dimasukkan
-                        if (i > 1) {
-                            // Jika gejala sudah lebih dari satu (i > 1)
-                            bobot_gabungan = bobot + (bobot_gabungan * (1 - bobot));
-                            // Menghitung bobot gabungan dengan rumus
-                            // bobot_gabungan = bobot + (bobot_gabungan * (1 - bobot))
-                        } else if (i == 1) {
-                            // Jika gejala baru satu (i == 1)
-                            bobot_gabungan = bobot_gabungan + (bobot * (1 - bobot_gabungan));
-                            // Menghitung bobot gabungan dengan rumus
-                            // bobot_gabungan = bobot_gabungan + (bobot * (1 - bobot_gabungan))
-                        } else {
-                            // Jika ini gejala pertama (i == 0)
-                            bobot_gabungan = bobot;
-                            // Assign bobot ke bobot_gabungan
-                        }
-                        i++;
-                        // Increment i untuk menandakan bahwa telah memproses satu gejala
+
+                    if (cursor_gejala.moveToFirst() && cursor_rule.getString(0).equals(cursor_gejala.getString(0))) {
+//                        bobot_gabungan += 1; // Misalnya, sementara ini hanya menambahkan 1 untuk setiap kesamaan
+                        gejala_terpilih_count++;
+                        cursor_gejala.close();
+                        break; // Keluar dari loop setelah menemukan kesamaan
                     }
+
                     cursor_gejala.close();
                 }
             }
             cursor_rule.close();
-            mapHasil.put(cursor_penyakit.getString(0), bobot_gabungan * 100);
 
+            mapHasil.put(cursor_penyakit.getString(0), gejala_terpilih_count);
         }
         cursor_penyakit.close();
 
-        StringBuilder listPenyakit = new StringBuilder();
-        for (Map.Entry<String, Double> entry : SortByValue(mapHasil).entrySet()) {
-            String kode_penyakit = entry.getKey();
-            double hasil_bobot = entry.getValue();
-            int persentase = (int) hasil_bobot;
-
-            String query_penyakit_hasil = "SELECT nama_penyakit FROM penyakit where kode_penyakit='" + kode_penyakit + "'";
-            Cursor cursor_hasil = sqLiteDatabase.rawQuery(query_penyakit_hasil, null);
-            cursor_hasil.moveToFirst();
-
-            listPenyakit.append(cursor_hasil.getString(0)).append(": ").append(persentase).append("%\n");
-
-            cursor_hasil.close();
-        }
-
-        tvListPenyakit.setText(listPenyakit.toString());
-
         StringBuffer output_gejala_terpilih = new StringBuffer();
         int no = 1;
-        for (String s_gejala_terpilih : gejala_terpilih) {
+        for (String s_gejala_terpilih : receivedGejala) {
             output_gejala_terpilih.append(no++)
                     .append(". ")
                     .append(s_gejala_terpilih)
@@ -147,27 +113,33 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
 
         tvGejala.setText(output_gejala_terpilih);
 
-        Map<String, Double> sortedHasil = SortByValue(mapHasil);
+        Map<String, Integer> sortedHasil = SortByValue(mapHasil);
 
-        Map.Entry<String, Double> entry = sortedHasil.entrySet().iterator().next();
+        Map.Entry<String, Integer> entry = sortedHasil.entrySet().iterator().next();
         String kode_penyakit = entry.getKey();
-        double hasil_bobot = entry.getValue();
-        int persentase = (int) hasil_bobot;
+        int gejala_terpilih_count = entry.getValue();
 
         String query_penyakit_hasil = "SELECT nama_penyakit FROM penyakit where kode_penyakit='" + kode_penyakit + "'";
         Cursor cursor_hasil = sqLiteDatabase.rawQuery(query_penyakit_hasil, null);
         cursor_hasil.moveToFirst();
 
-        tvNamaPenyakit.setText(cursor_hasil.getString(0) + " " + persentase + "%");
+        tvNamaPenyakit.setText(cursor_hasil.getString(0));
 
         cursor_hasil.close();
 
         btnDiagnosaUlang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                receivedGejala.clear();
+
+                // Reset diagnosa
+                Intent intent = new Intent(HasilDiagnosaActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 finish();
             }
         });
+
 
         btnDaftarPenyakit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,17 +150,17 @@ public class HasilDiagnosaActivity extends AppCompatActivity {
         });
     }
 
-    public static HashMap<String, Double> SortByValue(HashMap<String, Double> hm) {
-        List<Map.Entry<String, Double>> list = new LinkedList<Map.Entry<String, Double>>(hm.entrySet());
+    public static HashMap<String, Integer> SortByValue(HashMap<String, Integer> hm) {
+        List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(hm.entrySet());
 
-        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
-            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                 return (o2.getValue()).compareTo(o1.getValue());
             }
         });
 
-        HashMap<String, Double> temp = new LinkedHashMap<String, Double>();
-        for (Map.Entry<String, Double> aa : list) {
+        HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
+        for (Map.Entry<String, Integer> aa : list) {
             temp.put(aa.getKey(), aa.getValue());
         }
         return temp;
